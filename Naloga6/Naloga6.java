@@ -42,19 +42,19 @@ class Node{
         left = right = null;
     }
 
-    void printPreorder(Node node)
-    {
+    void printPreorder(Node node, ){
+
         if (node == null)
-            return;
+            return ;
  
         /* first print data of node */
         System.out.print(node.data + ",");
  
         /* then recur on left subtree */
-        printPreorder(node.left);
+        printPreorder(node.left, );
  
         /* now recur on right subtree */
-        printPreorder(node.right);
+        printPreorder(node.right, );
     }
 
 }
