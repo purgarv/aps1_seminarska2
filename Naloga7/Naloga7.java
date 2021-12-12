@@ -36,12 +36,15 @@ public class Naloga7{
 
 
             int stPrestop = stPrestopov(poti, start, finish);
-            System.out.println(stPrestop);
+            //System.out.println(stPrestop);
+            p.println(stPrestop);
 
             
             if(stPrestop == -1){
-                System.out.println("-1");
-                System.out.println("-1");
+                //System.out.println("-1");
+                p.println(-1);
+                //System.out.println("-1");
+                p.println(-1);
             }
             else{
 
@@ -49,28 +52,19 @@ public class Naloga7{
                 int minPostaj = min.x;
                 int prestopov = min.y;
 
-                System.out.println(minPostaj);
+                //System.out.println(minPostaj);
+                p.println(minPostaj);
 
-                if(prestopov == stPrestop)
-                    System.out.println("1");
-                else
-                    System.out.println("0");
+                if(prestopov == stPrestop){
+                    //System.out.println("1");
+                    p.println(1);
+                }
+                else{
+                    //System.out.println("0");
+                    p.println(0);
+                }
 
-            }
-            
-
-
-
-            /*
-            for(int i = 0; i < poti.length; i++){
-                for(int j = 0; j < poti[i].length; j++)
-                    System.out.print(poti[i][j] + " ");
-                System.out.println();
-            }
-            System.out.println(start);
-            System.out.println(finish);
-            */
-            
+            }          
             
 
             br.close();
@@ -81,6 +75,7 @@ public class Naloga7{
         }
 
     }
+
     public static boolean seka(int[] a, int[] b) {
         int i = 0, j = 0;
         while (i < a.length && j < b.length) {
@@ -95,8 +90,8 @@ public class Naloga7{
     }
 
     
-    public static int stPrestopov(int[][] poti, int s, int t) {
-        if (s == t) 
+    public static int stPrestopov(int[][] poti, int start, int finish) {
+        if (start == finish) 
             return 0;
 
         int n = poti.length;
@@ -118,11 +113,11 @@ public class Naloga7{
                 }             
 
         for (int i = 0; i < n; i++) {
-            if (Arrays.binarySearch(poti[i], s) >= 0) {
+            if (Arrays.binarySearch(poti[i], start) >= 0) {
                 seen.add(i);
                 queue.offer(new Point(i, 0));
             }
-            if (Arrays.binarySearch(poti[i], t) >= 0)
+            if (Arrays.binarySearch(poti[i], finish) >= 0)
                 targets.add(i);
         }
 

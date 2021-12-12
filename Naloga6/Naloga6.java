@@ -13,7 +13,7 @@ public class Naloga6{
 
             String[] exp = line.split(" ");
 
-            String[] out = intopost(exp);
+            String[] out = infixtopostfix(exp);
 
             Node r = buildTree(out);
 
@@ -70,7 +70,7 @@ public class Naloga6{
         return s.pop();
     }
 
-    public static String[] intopost(String [] exp){
+    public static String[] infixtopostfix(String [] exp){
         Stack<String> s = new Stack();
         String [] out = new String[exp.length];
         int j = 0;
