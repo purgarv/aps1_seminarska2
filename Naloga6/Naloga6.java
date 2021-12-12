@@ -1,26 +1,27 @@
 import java.io.*;
+import java.util.*;
 
 public class Naloga6{
+    public static StringBuilder str = new StringBuilder();
     public static void main(String[] args) {
         try{
 
             BufferedReader br = new BufferedReader(new FileReader(args[0]));
             PrintWriter p = new PrintWriter(args[1]);
-            StringBuilder str = new StringBuilder();
-
 
             String line = br.readLine();
 
-            String[] l = line.split(" ");
+            String[] exp = line.split(" ");
 
+            String[] out = intopost(exp);
 
+            Node r = buildTree(out);
 
+            printPreorder(r);
             
-
-
-
-
-
+            p.print(str.substring(0,str.length()-1));
+            p.print("\n");
+            p.print(depth(r));
 
 
             br.close();
@@ -31,30 +32,145 @@ public class Naloga6{
         }
 
     }
+
+    public static Node buildTree(String[] exp){
+        Stack<Node> s = new Stack();
+        Node t1, t2, temp;
+
+
+        for(int i = 0; i < exp.length; i++){
+            switch(exp[i]){
+                case "NOT":
+                    temp = new Node(exp[i]);
+                    t1 = s.pop();
+                    temp.left = t1;
+                    s.push(temp);
+                    break;
+
+                case "AND":
+                case "OR":
+                    temp = new Node(exp[i]);
+    
+                    t2 = s.pop();
+                    t1 = s.pop();
+    
+                    temp.left = t1;
+                    temp.right = t2;
+    
+                    s.push(temp);
+                    break;
+
+                default:
+                    s.push(new Node(exp[i]));
+                    break;
+                 
+            }
+        }
+
+        return s.pop();
+    }
+
+    public static String[] intopost(String [] exp){
+        Stack<String> s = new Stack();
+        String [] out = new String[exp.length];
+        int j = 0;
+
+
+        for(int i = 0; i < exp.length; i++){
+
+            if(exp[i].contains("(")){
+                s.push("(");
+                exp[i] = exp[i].substring(1, exp[i].length());
+                i--;
+            }
+            else if(exp[i].contains(")")){
+                out[j] = exp[i].substring(0, exp[i].length() - 1);
+                j++;
+
+                while(!s.peek().equals("(")){
+
+                    out[j] = s.pop();
+                    j++;
+
+                }
+                s.pop();
+
+            }
+            else if(Character.isLowerCase(exp[i].charAt(0)) || exp[i].equals("TRUE") || exp[i].equals("FALSE")){
+                out[j] = exp[i];
+                j++;
+            }
+            else if(exp[i].equals("AND") || exp[i].equals("OR") || exp[i].equals("NOT")){
+
+                if(!s.isEmpty()){
+                    while(!s.isEmpty() && priority(exp[i]) <= priority(s.peek()) ) {
+                        out[j] = s.pop();
+                        j++;
+                    }
+                }
+
+                s.push(exp[i]);
+            }
+        }
+            
+        
+
+        while(!s.isEmpty()){
+            out[j] = s.pop();
+            j++;
+        }
+
+        return out;
+    }
+
+    public static int priority(String a){
+        switch(a){
+            case "AND":
+            case "OR":
+                return 1;
+            case "NOT":
+                return 2;
+            default: 
+                return -1;
+        }
+
+    }
+
+    public static void printPreorder(Node node){
+
+        if (node == null)
+            return;
+ 
+        str.append(node.data).append(",");
+        printPreorder(node.left);
+        printPreorder(node.right);
+
+    }
+
+    public static int depth(Node node){
+        if (node == null)
+            return 0;
+        else{
+            int lDepth = depth(node.left);
+            int rDepth = depth(node.right);
+
+            if (lDepth > rDepth)
+                return (lDepth + 1);
+             else
+                return (rDepth + 1);
+        }
+    }
+
 }
 
 class Node{
     String data;
-    Node left,right;
+    Node left, right;
 
     public Node(String data){
         this.data = data;
-        left = right = null;
+        this.left = null;
+        this.right = null;
     }
-
-    void printPreorder(Node node, ){
-
-        if (node == null)
-            return ;
- 
-        /* first print data of node */
-        System.out.print(node.data + ",");
- 
-        /* then recur on left subtree */
-        printPreorder(node.left, );
- 
-        /* now recur on right subtree */
-        printPreorder(node.right, );
-    }
-
+    public Node(){}
 }
