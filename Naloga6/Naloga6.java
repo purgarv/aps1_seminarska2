@@ -11,10 +11,11 @@ public class Naloga6{
 
             String line = br.readLine();
 
-            String[] exp = line.split(" ");
+            String[] exp = line.replace("(", "( ").replace(")", " )").split(" ");
 
-            String[] out = infixtopostfix(exp);
-
+            String [] out = infixtopostfix(exp).toArray(new String[0]);
+            
+            
             Node r = buildTree(out);
 
             printPreorder(r);
@@ -32,7 +33,7 @@ public class Naloga6{
         }
 
     }
-
+    
     public static Node buildTree(String[] exp){
         Stack<Node> s = new Stack();
         Node t1, t2, temp;
@@ -69,71 +70,67 @@ public class Naloga6{
 
         return s.pop();
     }
-
-    public static String[] infixtopostfix(String [] exp){
+    
+    public static LinkedList<String> infixtopostfix(String[] exp){
         Stack<String> s = new Stack();
-        String [] out = new String[exp.length];
+        LinkedList<String> out = new LinkedList();
         int j = 0;
 
 
         for(int i = 0; i < exp.length; i++){
 
-            if(exp[i].contains("(")){
-                s.push("(");
-                exp[i] = exp[i].substring(1, exp[i].length());
-                i--;
+            if(exp[i].contains("(") || exp[i].equals("NOT")){
+                s.push(exp[i]);
             }
             else if(exp[i].contains(")")){
-                out[j] = exp[i].substring(0, exp[i].length() - 1);
-                j++;
-
+                                
                 while(!s.peek().equals("(")){
-
-                    out[j] = s.pop();
+                    out.add(s.pop());
                     j++;
-
                 }
+                
                 s.pop();
 
             }
             else if(Character.isLowerCase(exp[i].charAt(0)) || exp[i].equals("TRUE") || exp[i].equals("FALSE")){
-                out[j] = exp[i];
+                out.add(exp[i]);
                 j++;
             }
-            else if(exp[i].equals("AND") || exp[i].equals("OR") || exp[i].equals("NOT")){
+            else if(exp[i].equals("AND") || exp[i].equals("OR")){
 
-                if(!s.isEmpty()){
-                    while(!s.isEmpty() && priority(exp[i]) <= priority(s.peek()) ) {
-                        out[j] = s.pop();
-                        j++;
-                    }
+                while(!s.isEmpty() && priority(exp[i]) <= priority(s.peek()) ) {
+                    out.add(s.pop());
+                    j++;
                 }
-
+                
                 s.push(exp[i]);
             }
         }
             
-        
+        System.out.println();
 
         while(!s.isEmpty()){
-            out[j] = s.pop();
+            
+            out.add(s.pop());
             j++;
+            
         }
 
         return out;
     }
+    
 
     public static int priority(String a){
         switch(a){
-            case "AND":
             case "OR":
+                return 0;
+            case "AND":
                 return 1;
             case "NOT":
                 return 2;
             default: 
                 return -1;
         }
-
     }
 
     public static void printPreorder(Node node){
