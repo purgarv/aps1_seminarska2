@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.HashMap;
 
 public class Naloga10{
     public static void main(String[] args) {
@@ -8,7 +9,7 @@ public class Naloga10{
             PrintWriter p = new PrintWriter(args[1]);
             
             int n = Integer.parseInt(br.readLine());
-            Tocka[] tocke = new Tocka[n]; 
+            HashMap<Integer, Tocka> tocke = new HashMap<>();
 
             String line;
 
@@ -18,24 +19,28 @@ public class Naloga10{
             for(int i = 0; (line = br.readLine()) != null && i < n; i++){
                 
                 val = line.split(",");
-                tocke[i] = new Tocka(i + 1, Double.parseDouble(val[0]), Double.parseDouble(val[1]));
+                tocke.put(i + 1, new Tocka(i + 1, Double.parseDouble(val[0]), Double.parseDouble(val[1])));
 
             }
 
-            int stSkupin = Integer.parseInt(line);
+            int stZahtevano = Integer.parseInt(line);
+            int stSkupin = n;
 
-            for(int i = 0; i < stSkupin; i++){
-                
-                tocke[i].skupina = i + 1;
+            while(stSkupin > stZahtevano){
 
+
+
+                stSkupin--;
             }
-
             
+
+
+
             System.out.println(n);
-            System.out.println(stSkupin);
+            System.out.println(stZahtevano);
             for(int i = 0; i < n; i++){
                 
-                System.out.println(tocke[i].id + ", " + tocke[i].x + ", " + tocke[i].y + ", " + tocke[i].skupina);
+                System.out.println(tocke.get(i + 1).id + ", " + tocke.get(i + 1).x + ", " + tocke.get(i + 1).y + ", " + tocke.get(i + 1).skupina);
 
             }
             
@@ -69,5 +74,13 @@ class Tocka{
         this.y = y;
         this.id = id;
         this.skupina = -1;
+    }
+
+    public Tocka(int id, double x, double y, int skupina){
+
+        this.x = x;
+        this.y = y;
+        this.id = id;
+        this.skupina = skupina;
     }
 }

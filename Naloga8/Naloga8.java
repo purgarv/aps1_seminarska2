@@ -8,7 +8,6 @@ public class Naloga8{
 
             BufferedReader br = new BufferedReader(new FileReader(args[0]));
             PrintWriter p = new PrintWriter(args[1]);
-            StringBuilder str = new StringBuilder();
             HashMap<Integer, Node> nodes = new HashMap<>();
             HashSet<Integer> leftRight = new HashSet<>();  
 
