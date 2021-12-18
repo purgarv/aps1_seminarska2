@@ -170,10 +170,10 @@ public class Naloga7{
 
         while(!st.isEmpty()){
             Point4 info = st.pop();
-            int i = info.x;
-            int index = info.y;
-            int postaj = info.z;
-            int prestopov = info.w;
+            int i = info.linija;
+            int index = info.postaja;
+            int postaj = info.stPostaj;
+            int prestopov = info.stPrestopov;
 
             if(targets.contains(i)){
                 diff = Math.abs(Arrays.binarySearch(poti[i], t) - Arrays.binarySearch(poti[i], poti[i][index]));
@@ -208,16 +208,16 @@ public class Naloga7{
 }
 
 class Point4{
-    int x;
-    int y;
-    int z;
-    int w;
+    int linija;
+    int postaja;
+    int stPostaj;
+    int stPrestopov;
 
-    public Point4(int x, int y, int z, int w){
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        this.w = w;
+    public Point4(int linija, int postaja, int stPostaj, int stPrestopov){
+        this.linija = linija;
+        this.postaja = postaja;
+        this.stPostaj = stPostaj;
+        this.stPrestopov = stPrestopov;
     }
 
 }

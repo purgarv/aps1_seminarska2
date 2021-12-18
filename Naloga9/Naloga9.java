@@ -46,7 +46,10 @@ public class Naloga9{
             }
 
 
-           
+            for (int i = 0; i <= v; i++) {
+                Collections.sort(adj.get(i));
+            }
+
             for(int i = 0; i < m && (line = br.readLine()) != null; i++){
                 temp = line.split(",");
 
@@ -113,7 +116,6 @@ public class Naloga9{
             return null;
         }
  
-        
         LinkedList<Integer> path = new LinkedList<>();
         int crawl = dest - 1;
         path.add(crawl + 1);
