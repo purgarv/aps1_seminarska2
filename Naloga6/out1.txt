@@ -1,2 +1,2 @@
-AND,OR,a,b,c
+OR,a,AND,b,c
 3

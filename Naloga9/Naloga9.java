@@ -95,8 +95,28 @@ public class Naloga9{
                 }
 
             }
+            LinkedList<Povezava> najdrazje2 = new LinkedList<>();
+            najdrazje2 = (LinkedList<Povezava>) najdrazje.clone();
+            LinkedList<Povezava> sorted = new LinkedList<>();
 
-            for(Povezava pov : najdrazje){
+            while(sorted.size() < najdrazje.size()){
+                Povezava min = najdrazje2.get(0);
+
+                for(int i = 0; i < najdrazje2.size(); i++){
+                    Povezava curr = najdrazje2.get(i);
+
+                    if(curr.v1 < min.v1)
+                        min = curr;
+                    else if(curr.v1 == min.v1)
+                        if(curr.v2 < min.v2)
+                            min = curr;
+                    
+                }
+                sorted.add(min);
+                najdrazje2.remove(min);
+            }
+            
+            for(Povezava pov : sorted){
                 p.println(pov.v1 + "," + pov.v2);
             }            
 
