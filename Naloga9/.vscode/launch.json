@@ -9,7 +9,7 @@
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}",
-            "args": ["vhod.txt", "izhod.txt"]
+            "args": ["I9_4.txt", "out4.txt"]
         },
         {
             "type": "java",
