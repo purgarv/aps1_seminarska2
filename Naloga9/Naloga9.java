@@ -15,11 +15,7 @@ public class Naloga9{
             int n = Integer.parseInt(temp[0]);
             int m = Integer.parseInt(temp[1]);
 
-            
-
             String line;
-
-
 
             for(int i = 0; i < n && (line = br.readLine()) != null; i++){
                 temp = line.split(",");
@@ -62,18 +58,21 @@ public class Naloga9{
                 }
                 else{
 
-                    LinkedList<Integer> path = shortestPath(adj, Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), v);
-                    
-                    for(int j = 0; j < path.size() - 1; j++){
+                    if(Integer.parseInt(temp[0]) <= nodes.size() && Integer.parseInt(temp[1]) <= nodes.size()){
 
-                        int v1 = path.get(j);
-                        int v2 = path.get(j + 1);
-
-                        Povezava key1 = new Povezava(v1, v2);
-
-                        povezave.put(key1, povezave.get(key1) + Integer.parseInt(temp[2]));
+                        LinkedList<Integer> path = shortestPath(adj, Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), v);
                         
+                        for(int j = 0; j < path.size() - 1; j++){
 
+                            int v1 = path.get(j);
+                            int v2 = path.get(j + 1);
+
+                            Povezava key1 = new Povezava(v1, v2);
+
+                            povezave.put(key1, povezave.get(key1) + Integer.parseInt(temp[2]));
+                            
+
+                        }
                     }
                     
                 }
